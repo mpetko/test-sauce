@@ -6,7 +6,7 @@ class BingQueryPage extends Page {
 
     static url = "https://www.bing.com/"
 
-    static at = { title.contentEquals("Bing") }
+    static at = { title.contentEquals("Test bla") }
 
     static content = {
         searchField { $("input", name: "q")}
