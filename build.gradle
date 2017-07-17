@@ -28,8 +28,8 @@ ext {
 }
 
 def sauce = [
-            username: "mpetkovic2",
-            key     : "dbb915bb-e6e3-40b2-b27b-e3dade3d76c1"
+            username: "UFQAuser",
+            key     : "ab32b08e-49b7-455e-a585-18cf39a9e9c9"
     ]
 
 dependencies {
