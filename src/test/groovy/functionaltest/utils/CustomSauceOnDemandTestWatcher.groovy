@@ -7,8 +7,6 @@ import com.saucelabs.saucerest.SauceREST;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * {@link TestWatcher} subclass that will mark a Sauce OnDemand job as passed or failed depending on the result
@@ -16,7 +14,7 @@ import java.util.Map;
  * @author Ross Rowe - modifications to use {@link SauceOnDemandAuthentication}
  */
 public class CustomSauceOnDemandTestWatcher extends TestWatcher {
-
+    private String watchedLog = ""
     /**
      * The underlying {@link com.saucelabs.common.SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
      * the unit test being executed.
@@ -93,7 +91,23 @@ public class CustomSauceOnDemandTestWatcher extends TestWatcher {
             updates.put("passed", true);
             Utils.addBuildNumberToUpdate(updates);
             sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
+            updateTestStatus()
         }
+    }
+
+    public boolean areTestsSuccessful() {
+        boolean pass = true;
+        if(this.watchedLog!=null && !this.watchedLog.equals("")) {
+            pass = false
+        }
+        return pass
+    }
+
+    public void updateTestStatus() {
+        Map<String, Object> updates = new HashMap<>()
+        updates.put("passed", areTestsSuccessful())
+        Utils.addBuildNumberToUpdate(updates)
+        this.sauceREST.updateJobInfo(this.sessionIdProvider.getSessionId(), updates)
     }
 
     private void printSessionId(Description description) {
@@ -111,13 +125,14 @@ public class CustomSauceOnDemandTestWatcher extends TestWatcher {
      * @param description not used
      */
     protected void failed(Throwable e, Description description) {
+        this.watchedLog+= description.getMethodName()
         if (sessionIdProvider != null && sessionIdProvider.getSessionId() != null) {
             printSessionId(description);
             Map<String, Object> updates = new HashMap<String, Object>();
             updates.put("passed", false);
             Utils.addBuildNumberToUpdate(updates);
             sauceREST.updateJobInfo(sessionIdProvider.getSessionId(), updates);
-
+            updateTestStatus()
             if (verboseMode) {
                 // get, and print to StdOut, the link to the job
                 String authLink = sauceREST.getPublicJobLink(sessionIdProvider.getSessionId());
@@ -125,6 +140,8 @@ public class CustomSauceOnDemandTestWatcher extends TestWatcher {
             }
         }
     }
+
+
 
 
 }
