@@ -37,11 +37,11 @@ public class CustomSauceOnDemandTestWatcher extends TestWatcher {
     /**
      * @param sessionIdProvider Id provider for the current web driver session
      */
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider) {
+    public CustomSauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider) {
         this(sessionIdProvider, new SauceOnDemandAuthentication());
     }
 
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, boolean verboseMode) {
+    public CustomSauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, boolean verboseMode) {
         this(sessionIdProvider, new SauceOnDemandAuthentication(), verboseMode);
     }
 
@@ -49,7 +49,7 @@ public class CustomSauceOnDemandTestWatcher extends TestWatcher {
      * @param sessionIdProvider Id provider for the current web driver session
      * @param authentication Authentication provider for the current sauce labs user
      */
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication) {
+    public CustomSauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication) {
         this(sessionIdProvider,
                 authentication.getUsername(),
                 authentication.getAccessKey(), true);
@@ -60,7 +60,7 @@ public class CustomSauceOnDemandTestWatcher extends TestWatcher {
      * @param authentication Authentication provider for the current sauce labs user
      * @param verboseMode Enables verbose mode
      */
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication, boolean verboseMode) {
+    public CustomSauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, SauceOnDemandAuthentication authentication, boolean verboseMode) {
         this(sessionIdProvider,
                 authentication.getUsername(),
                 authentication.getAccessKey(),
