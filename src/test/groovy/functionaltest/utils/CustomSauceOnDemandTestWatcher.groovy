@@ -15,7 +15,7 @@ import java.util.Map;
  * of the test case being executed.
  * @author Ross Rowe - modifications to use {@link SauceOnDemandAuthentication}
  */
-public class SauceOnDemandTestWatcher extends TestWatcher {
+public class CustomSauceOnDemandTestWatcher extends TestWatcher {
 
     /**
      * The underlying {@link com.saucelabs.common.SauceOnDemandSessionIdProvider} instance which contains the Selenium session id.  This is typically
@@ -73,7 +73,7 @@ public class SauceOnDemandTestWatcher extends TestWatcher {
      * @param accessKey Sauce access key
      * @param verboseMode Enables verbose mode
      */
-    public SauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, final String username, final String accessKey, boolean verboseMode) {
+    public CustomSauceOnDemandTestWatcher(SauceOnDemandSessionIdProvider sessionIdProvider, final String username, final String accessKey, boolean verboseMode) {
         this.sessionIdProvider = sessionIdProvider;
         sauceREST = new SauceREST(username, accessKey);
         this.verboseMode = verboseMode;
